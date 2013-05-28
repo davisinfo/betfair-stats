@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  country_iso3: MyString
+  event_type_id: 1
+  status: MyString
+  suspend_time: 2013-05-01 14:59:34
+  time: 2013-05-01 14:59:34
+  type: 
+  type_variant: MyString
+  path: MyString
+  type_name: MyString
+  selections_no: 1
+  number_of_winners: 1
+
+two:
+  name: MyString
+  country_iso3: MyString
+  event_type_id: 1
+  status: MyString
+  suspend_time: 2013-05-01 14:59:34
+  time: 2013-05-01 14:59:34
+  type: 
+  type_variant: MyString
+  path: MyString
+  type_name: MyString
+  selections_no: 1
+  number_of_winners: 1

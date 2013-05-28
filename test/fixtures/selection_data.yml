@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  selection: 
+  order_index: 1
+  total_amount_matched: 9.99
+  last_price_matched: 9.99
+
+two:
+  selection: 
+  order_index: 1
+  total_amount_matched: 9.99
+  last_price_matched: 9.99
