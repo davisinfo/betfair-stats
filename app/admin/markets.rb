@@ -49,7 +49,7 @@ ActiveAdmin.register Market do
         column :id, :width => 100
         column :name
         column :graph do |s|
-          div :id => "graph_" + s.id.to_s do
+          div :id => "graph_" + s.id.to_s, :style => 'width:100%; height:400px;' do
             ms = MarketSelection.find_by_market_id_and_selection_id(market.id, s.id)
             series[s.id] = []
             ms.selection_values.all(:order => "updated_at asc").each do |sv|
@@ -118,7 +118,7 @@ ActiveAdmin.register Market do
       end
     end
 
-    div :id => 'graph_total' do
+    div :id => 'graph_total', :style => 'width:100%; height:' + (400 + series.size * 40).to_s + 'px;' do
       @chart = LazyHighCharts::HighChart.new('line') do |f|
         MarketSelection.find_all_by_market_id(market.id).each do |ms|
           f.series(:name=>ms.selection.name,:data => series[ms.selection.id])
