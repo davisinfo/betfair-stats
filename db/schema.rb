@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130527180634) do
+ActiveRecord::Schema.define(:version => 20130705183322) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(:version => 20130527180634) do
     t.datetime "updated_at",        :null => false
   end
 
-  create_table "selection_data", :force => true do |t|
+  create_table "selection_values", :force => true do |t|
     t.integer  "market_selection_id"
     t.integer  "order_index"
     t.decimal  "total_amount_matched", :precision => 8, :scale => 2
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(:version => 20130527180634) do
     t.datetime "updated_at",                                         :null => false
   end
 
-  add_index "selection_data", ["market_selection_id"], :name => "index_selection_data_on_market_selection_id"
+  add_index "selection_values", ["market_selection_id"], :name => "index_selection_data_on_market_selection_id"
 
   create_table "selections", :force => true do |t|
     t.string   "name"

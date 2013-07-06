@@ -72,6 +72,7 @@ GEM
     gyoku (1.0.0)
       builder (>= 2.1.2)
     has_scope (0.5.1)
+    hash-deep-merge (0.1.1)
     hike (1.2.2)
     httpi (2.0.2)
       rack
@@ -87,6 +88,9 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    lazy_high_charts (1.4.2)
+      bundler (>= 1.0)
+      hash-deep-merge
     mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -165,6 +169,7 @@ DEPENDENCIES
   betfair
   coffee-rails (~> 3.2.1)
   jquery-rails
+  lazy_high_charts
   meta_search (>= 1.1.0.pre)
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)

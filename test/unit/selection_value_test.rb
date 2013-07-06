@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SelectionDataTest < ActiveSupport::TestCase
+class SelectionValueTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

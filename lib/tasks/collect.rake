@@ -8,7 +8,7 @@ task :collect_stats => :environment do
 
   last_get_market = nil
   last_get_price = nil
-  raw_markets =  bf.get_all_markets(session_token, 1, [7], nil, nil, Time.now.utc, 10.minutes.from_now.utc)
+  raw_markets =  bf.get_all_markets(session_token, 1, [7], nil, nil, DateTime.now.utc, (DateTime.now + 10.minutes).utc)
   markets = helpers.all_markets(raw_markets)
   markets.each do |id,market|
     if !id.blank? and id.to_i !=0 then
@@ -20,12 +20,14 @@ task :collect_stats => :environment do
         if !_m then
           if last_get_market then
             while Time.now - last_get_market <= 12 do
+              sleep(0.2)
             end
           end
           _bfmarket = bf.get_market(session_token, 1, id, nil)
           last_get_market = Time.now
-          # puts "Get Market ============================================="
-          # puts _bfmarket.inspect
+          #if _bfmarket[:market_time] - 1.hour <= DateTime.now.getutc then
+          #puts "Get Market ============================================="
+          #puts _bfmarket.inspect
           market_info = helpers.market_info(_bfmarket)
           # puts "Info ==============================================="
           # puts market_info.inspect
@@ -62,6 +64,7 @@ task :collect_stats => :environment do
         end
         if last_get_price then
           while Time.now - last_get_price <= 1 do
+              sleep(0.2)
           end
         end
         prices = bf.get_market_prices_compressed(session_token, 1, id)
@@ -70,12 +73,12 @@ task :collect_stats => :environment do
         #puts selection_data.inspect
         selection_data.each do |sd|
           if sd[1].is_a?(Hash) then
-            _ms = MarketSelection.find_or_create_by_market_id_and_selection_id(sd[0],id)
+            _ms = MarketSelection.find_or_create_by_market_id_and_selection_id(id,sd[0])
             _ms.save(:validate => false)
-            _sd = SelectionData.where(:market_selection_id => _ms.id).order("created_at desc").first
+            _sd = SelectionValue.where(:market_selection_id => _ms.id).order("created_at desc").first
             if !_sd || _sd.last_price_matched != sd[1][:last_price_matched] then
               #puts sd[1].inspect
-              _sd = SelectionData.new
+              _sd = SelectionValue.new
               _sd.last_price_matched = sd[1][:last_price_matched]
               _sd.total_amount_matched = sd[1][:total_amount_matched]
               _sd.order_index = sd[1][:order_index]

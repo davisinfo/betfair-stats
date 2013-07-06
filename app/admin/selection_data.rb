@@ -1,3 +1,3 @@
-ActiveAdmin.register SelectionData do
+ActiveAdmin.register SelectionValue do
   
 end
