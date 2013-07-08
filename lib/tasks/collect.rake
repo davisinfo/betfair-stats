@@ -2,7 +2,7 @@ task :collect_stats => :environment do
   require 'betfair'
 
   bf = Betfair::API.new
-  session_token = bf.login('chestorul2', 'b1n1tleilax2007', 82, 0, 0, nil)
+  session_token = bf.login('chestorul2', 'password', 82, 0, 0, nil)
 
   helpers = Betfair::Helpers.new
 
