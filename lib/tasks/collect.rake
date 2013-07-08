@@ -14,7 +14,7 @@ task :collect_stats => :environment do
       markets = helpers.all_markets(raw_markets)
       markets.each do |id, market|
         if !id.blank? and id.to_i !=0 then
-          if market[:iso3_country_code] == 'GBR' && market[:number_of_winners] == 1 then
+          if market[:iso3_country_code] == 'GBR' && market[:number_of_winners] == 1 && market[:number_of_selections]>=10 && market[:number_of_selections]<=15 && !['Reverse FC','Forecast','Without Fav(s)'].include?(market[:market_name]) then
             # puts "Market ==============================================="
             # puts market.inspect
             # add market to database

@@ -53,7 +53,7 @@ ActiveAdmin.register Market do
             ms = MarketSelection.find_by_market_id_and_selection_id(market.id, s.id)
             series[s.id] = []
             ms.selection_values.all(:order => "updated_at asc").each do |sv|
-              series[s.id] << [sv.updated_at, sv.total_amount_matched.to_f]
+              series[s.id] << [sv.updated_at, sv.last_price_matched.to_f]
               #series << sv.total_amount_matched.to_f
               #series << sv.total_amount_matched.to_f + 100
             end
