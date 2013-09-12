@@ -1,4 +1,13 @@
 task :collect_stats => :environment do
+  def is_wanted_soccer_event(market)
+    market[:event_hierarchy][1] == '1' && ['Barclays Premier League', 'Ligue 1 Orange', 'Bundesliga 1', 'Serie A', 'Eredivisie', 'Primera Division', 'UEFA Champions League', 'UEFA Europa League'].any? {|w| market[:menu_path] =~ /#{w}/ } &&
+    ['Match Odds', 'Correct Score', 'Both teams to Score?', 'First Goal Odds', 'Over/Under 2.5 Goals'].any? {|w| market[:market_name] == w }
+  end
+
+  def is_wanted_horse_race_event(market)
+    market[:event_hierarchy][1] == '7' && market[:iso3_country_code] == 'GBR' && market[:number_of_winners] == 1 && market[:number_of_selections]>=10 && market[:number_of_selections]<=15 && !['Reverse FC','Forecast','Without Fav(s)'].include?(market[:market_name])
+  end
+
   require 'betfair'
 
   bf = Betfair::API.new
@@ -9,12 +18,12 @@ task :collect_stats => :environment do
   last_get_market = nil
   last_get_price = nil
   while true
-    raw_markets = bf.get_all_markets(session_token, 1, [7], nil, nil, DateTime.now.utc, (DateTime.now + 10.minutes).utc)
+    raw_markets = bf.get_all_markets(session_token, 1, [1], nil, nil, DateTime.now.utc, (DateTime.now + 10.minutes).utc)
     if !raw_markets.is_a?(Hash) then
       markets = helpers.all_markets(raw_markets)
       markets.each do |id, market|
         if !id.blank? and id.to_i !=0 then
-          if market[:iso3_country_code] == 'GBR' && market[:number_of_winners] == 1 && market[:number_of_selections]>=10 && market[:number_of_selections]<=15 && !['Reverse FC','Forecast','Without Fav(s)'].include?(market[:market_name]) then
+          if is_wanted_horse_race_event(market) || is_wanted_soccer_event(market) then
             # puts "Market ==============================================="
             # puts market.inspect
             # add market to database
