@@ -1,6 +1,6 @@
 task :collect_stats => :environment do
   def is_wanted_soccer_event(market)
-    market[:event_hierarchy][1] == '1' && ['Barclays Premier League', 'Ligue 1 Orange', 'Bundesliga 1', 'Serie A', 'Eredivisie', 'Primera Division', 'UEFA Champions League', 'UEFA Europa League'].any? {|w| market[:menu_path] =~ /#{w}/ } &&
+    market[:event_hierarchy][1] == '1' && ['\\Barclays Premier League\\', '\\Ligue 1 Orange\\', '\\Bundesliga 1\\', '\\Serie A\\', '\\Eredivisie\\', '\\Primera Division\\', '\\UEFA Champions League\\', '\\UEFA Europa League\\'].any? {|w| market[:menu_path] =~ /#{w}/ } &&
     ['Match Odds', 'Correct Score', 'Both teams to Score?', 'First Goal Odds', 'Over/Under 2.5 Goals'].any? {|w| market[:market_name] == w }
   end
 
