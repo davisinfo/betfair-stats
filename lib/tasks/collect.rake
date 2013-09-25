@@ -18,7 +18,7 @@ task :collect_stats => :environment do
   last_get_market = nil
   last_get_price = nil
   while true
-    raw_markets = bf.get_all_markets(session_token, 1, [1], nil, nil, DateTime.now.utc, (DateTime.now + 10.minutes).utc)
+    raw_markets = bf.get_all_markets(session_token, 1, [1], nil, nil, (DateTime.now.utc - 90.minutes), (DateTime.now + 10.minutes).utc)
     if !raw_markets.is_a?(Hash) then
       markets = helpers.all_markets(raw_markets)
       markets.each do |id, market|
